@@ -1,5 +1,5 @@
 import { FilterParams, FilteredMission } from "../types/missionTypes";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { prepareData } from "../lib/utils";
 
 export default function useFetchMissions(filterParams: FilterParams) {
@@ -7,7 +7,10 @@ export default function useFetchMissions(filterParams: FilterParams) {
   const [loading, setLoading] = useState<string | boolean>("Loading...");
   const [error, setError] = useState<string | boolean>(false);
 
-  const filterDataFunction = prepareData(filterParams);
+  const filterDataFunction = useMemo(
+    () => prepareData(filterParams),
+    [filterParams],
+  );
 
   useEffect(() => {
     async function fetchData() {
@@ -25,9 +28,8 @@ export default function useFetchMissions(filterParams: FilterParams) {
       }
     }
 
-    // TODO useMemo to memoise our filterDataFunction before including it in the array
     fetchData();
-  }, [filterParams]);
+  }, [filterParams, filterDataFunction]);
 
   return { missions, loading, error };
 }
