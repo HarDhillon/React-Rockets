@@ -1,5 +1,14 @@
+import { RocketList } from "./components/RocketList";
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24"></main>
+    <main>
+      <RocketList
+        filterParams={{
+          year: 2018,
+          customerName: "NASA",
+        }}
+      />
+    </main>
   );
 }
