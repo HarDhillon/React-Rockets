@@ -25,8 +25,9 @@ export default function useFetchMissions(filterParams: FilterParams) {
       }
     }
 
+    // TODO useMemo to memoise our filterDataFunction before including it in the array
     fetchData();
-  }, [filterParams, filterDataFunction]);
+  }, [filterParams]);
 
   return { missions, loading, error };
 }
